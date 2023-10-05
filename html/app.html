@@ -49,14 +49,25 @@ def most_viewed_stats(rdate = date.today()):
     Accepts a `date` (YYYY-MM-DD) and optional query param `period` of `monthly` (default)
     or `weekly` and returns list of articles and total article views for the specified period.
     
-    For example:
+    Examples:
 
-    date = 2023-09-15 and period = monthly
-    
-    The above input will return top 1000 viewed articles for the month of September (09).
-    
+    Monthly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/most-viewed/2023-09-15&#34; // returns top 1000 viewed articles for the month of September (09).
+    ```
+
+    Weekly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/most-viewed/2023-09-15?period=weekly&#34; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+    ```
+
     Args:
-        rdate (str): requested relative date to retrieve article stats (default: today&#39;s date)
+        rdate (str): requested relative date (to `period`, default is `monthly`) retrieve article stats (default: today&#39;s date)
+
+    Query Params:
+        period (enum[monthly*|weekly]): monthly or weekly period to query
     
     Returns:
         JSON: List of most viewed articles and respective view count for specified period
@@ -106,10 +117,27 @@ def aritcle_stats(atitle, rdate = date.today()):
     
     Accepts a date and returns stats for a given optional period of monthly (default) or weekly and 
     returns total view count.
+
+    Examples:
+
+    Monthly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15&#34; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+    ```
+
+    Weekly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15?period=weekly&#34; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+    ```
     
     Args:
         atitle (str): string of article to check for
         rdate (str): requested relative date to retrieve article stats (default: today&#39;s date)
+
+    Query Params:
+        period (enum[monthly*|weekly]): monthly or weekly period to query
     
     Returns:
         JSON: Name of article with total views for specified date
@@ -137,6 +165,12 @@ def article_top(atitle, rdate = date.today()):
     
     Accepts a date and article title and returns day of month in which article has most views.
     
+    Examples:
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1/articles/Albert_Einstein/2023-09-15&#34;
+    ```
+
     Args:
         atitle (str): string of article title to check for
         rdate (str): requested relative date to retrieve article view count (default: `date.today()`)
@@ -252,12 +286,19 @@ if __name__ == &#39;__main__&#39;:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="app.aritcle_stats"><code class="name flex">
-<span>def <span class="ident">aritcle_stats</span></span>(<span>atitle, rdate=datetime.date(2023, 10, 4))</span>
+<span>def <span class="ident">aritcle_stats</span></span>(<span>atitle, rdate=datetime.date(2023, 10, 5))</span>
 </code></dt>
 <dd>
 <div class="desc"><p>View Stats for a Single Article on a specific date</p>
 <p>Accepts a date and returns stats for a given optional period of monthly (default) or weekly and
 returns total view count.</p>
+<p>Examples:</p>
+<p>Monthly</p>
+<pre><code class="language-sh">curl -XGET &quot;http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15&quot; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+</code></pre>
+<p>Weekly</p>
+<pre><code class="language-sh">curl -XGET &quot;http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15?period=weekly&quot; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+</code></pre>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>atitle</code></strong> :&ensp;<code>str</code></dt>
@@ -265,6 +306,8 @@ returns total view count.</p>
 <dt><strong><code>rdate</code></strong> :&ensp;<code>str</code></dt>
 <dd>requested relative date to retrieve article stats (default: today's date)</dd>
 </dl>
+<p>Query Params:
+period (enum[monthly*|weekly]): monthly or weekly period to query</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>JSON</code></dt>
@@ -280,10 +323,27 @@ def aritcle_stats(atitle, rdate = date.today()):
     
     Accepts a date and returns stats for a given optional period of monthly (default) or weekly and 
     returns total view count.
+
+    Examples:
+
+    Monthly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15&#34; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+    ```
+
+    Weekly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15?period=weekly&#34; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+    ```
     
     Args:
         atitle (str): string of article to check for
         rdate (str): requested relative date to retrieve article stats (default: today&#39;s date)
+
+    Query Params:
+        period (enum[monthly*|weekly]): monthly or weekly period to query
     
     Returns:
         JSON: Name of article with total views for specified date
@@ -307,11 +367,14 @@ def aritcle_stats(atitle, rdate = date.today()):
 </details>
 </dd>
 <dt id="app.article_top"><code class="name flex">
-<span>def <span class="ident">article_top</span></span>(<span>atitle, rdate=datetime.date(2023, 10, 4))</span>
+<span>def <span class="ident">article_top</span></span>(<span>atitle, rdate=datetime.date(2023, 10, 5))</span>
 </code></dt>
 <dd>
 <div class="desc"><p>View day of month where article has most views</p>
 <p>Accepts a date and article title and returns day of month in which article has most views.</p>
+<p>Examples:</p>
+<pre><code class="language-sh">curl -XGET &quot;http://127.0.0.1/articles/Albert_Einstein/2023-09-15&quot;
+</code></pre>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>atitle</code></strong> :&ensp;<code>str</code></dt>
@@ -334,6 +397,12 @@ def article_top(atitle, rdate = date.today()):
     
     Accepts a date and article title and returns day of month in which article has most views.
     
+    Examples:
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1/articles/Albert_Einstein/2023-09-15&#34;
+    ```
+
     Args:
         atitle (str): string of article title to check for
         rdate (str): requested relative date to retrieve article view count (default: `date.today()`)
@@ -478,20 +547,26 @@ def article_top(atitle, rdate = date.today()):
 </details>
 </dd>
 <dt id="app.most_viewed_stats"><code class="name flex">
-<span>def <span class="ident">most_viewed_stats</span></span>(<span>rdate=datetime.date(2023, 10, 4))</span>
+<span>def <span class="ident">most_viewed_stats</span></span>(<span>rdate=datetime.date(2023, 10, 5))</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Most Viewed Stats for a Wikipedia article</p>
 <p>Accepts a <code>date</code> (YYYY-MM-DD) and optional query param <code>period</code> of <code>monthly</code> (default)
 or <code>weekly</code> and returns list of articles and total article views for the specified period.</p>
-<p>For example:</p>
-<p>date = 2023-09-15 and period = monthly</p>
-<p>The above input will return top 1000 viewed articles for the month of September (09).</p>
+<p>Examples:</p>
+<p>Monthly</p>
+<pre><code class="language-sh">curl -XGET &quot;http://127.0.0.1:8000/articles/most-viewed/2023-09-15&quot; // returns top 1000 viewed articles for the month of September (09).
+</code></pre>
+<p>Weekly</p>
+<pre><code class="language-sh">curl -XGET &quot;http://127.0.0.1:8000/articles/most-viewed/2023-09-15?period=weekly&quot; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+</code></pre>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>rdate</code></strong> :&ensp;<code>str</code></dt>
-<dd>requested relative date to retrieve article stats (default: today's date)</dd>
+<dd>requested relative date (to <code>period</code>, default is <code>monthly</code>) retrieve article stats (default: today's date)</dd>
 </dl>
+<p>Query Params:
+period (enum[monthly*|weekly]): monthly or weekly period to query</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>JSON</code></dt>
@@ -508,14 +583,25 @@ def most_viewed_stats(rdate = date.today()):
     Accepts a `date` (YYYY-MM-DD) and optional query param `period` of `monthly` (default)
     or `weekly` and returns list of articles and total article views for the specified period.
     
-    For example:
+    Examples:
 
-    date = 2023-09-15 and period = monthly
-    
-    The above input will return top 1000 viewed articles for the month of September (09).
-    
+    Monthly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/most-viewed/2023-09-15&#34; // returns top 1000 viewed articles for the month of September (09).
+    ```
+
+    Weekly
+
+    ```sh
+    curl -XGET &#34;http://127.0.0.1:8000/articles/most-viewed/2023-09-15?period=weekly&#34; // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+    ```
+
     Args:
-        rdate (str): requested relative date to retrieve article stats (default: today&#39;s date)
+        rdate (str): requested relative date (to `period`, default is `monthly`) retrieve article stats (default: today&#39;s date)
+
+    Query Params:
+        period (enum[monthly*|weekly]): monthly or weekly period to query
     
     Returns:
         JSON: List of most viewed articles and respective view count for specified period

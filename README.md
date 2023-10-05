@@ -42,7 +42,7 @@ This project uses `uwsgi` a WSGI server. If you're not interested in running thi
 To start the wsgi production environment with for load-balancing processes:
 
 ```sh
-uwsgi --http 127.0.0.1:8080 --master -p 4 -w app:app
+uwsgi --http 127.0.0.1:8000 --master -p 4 -w app:app
 ```
 
 ## Docker (optional)
@@ -77,9 +77,89 @@ This project uses `pytest` to run 6 (count'em) e2e route tests. To run the tests
 pytest 
 ```
 
+## API Endpoints
+
+### /articles/most-viewed/{date}
+
+__Most Viewed Stats for a Wikipedia article__
+    
+Accepts a `date` (YYYY-MM-DD) and optional query param `period` of `monthly` (default) or `weekly` and returns list of articles and total article views for the specified period.
+    
+#### Examples:
+
+##### Monthly
+
+```sh
+curl -XGET "http://127.0.0.1:8000/articles/most-viewed/2023-09-15" // returns top 1000 viewed articles for the month of September (09).
+```
+
+##### Weekly
+
+```sh
+curl -XGET "http://127.0.0.1:8000/articles/most-viewed/2023-09-15?period=weekly" // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+```
+
+#### Args:
+rdate (str): requested relative date (to `period`, default is `monthly`) retrieve article stats (default: today's date)
+
+#### Query Params:
+period (enum[monthly*|weekly]): monthly or weekly period to query
+
+#### Returns:
+JSON: List of most viewed articles and respective view count for specified period
+
+### /articles/{article_title}/{date}
+
+__View Stats for a Single Article on a specific date__
+
+Accepts a date and returns stats for a given optional period of monthly (default) or weekly and returns total view count.
+
+#### Examples:
+
+##### Monthly
+
+```sh
+curl -XGET "http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15" // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+```
+
+##### Weekly
+
+```sh
+curl -XGET "http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15?period=weekly" // returns top 1000 viewed articles for the week of September 15 (Sept 11 - Sept 17)
+```
+
+#### Args:
+atitle (str): string of article to check for
+rdate (str): requested relative date to retrieve article stats (default: today's date)
+
+#### Query Params:
+period (enum[monthly*|weekly]): monthly or weekly period to query
+
+#### Returns:
+JSON: Name of article with total views for specified date
+
+### /articles/{article_title}/{date}/most
+
+View day of month where article has most views
+
+Accepts a date and article title and returns day of month in which article has most views.
+
+#### Examples:
+
+```sh
+curl -XGET "http://127.0.0.1:8000/articles/Albert_Einstein/2023-09-15"
+```
+
+#### Args:
+atitle (str): string of article title to check for
+rdate (str): requested relative date to retrieve article view count (default: `date.today()`)
+
+#### Returns:
+JSON: object containing article title and date which had most views and view count
+
 ## Contributing
 
-Please don't.
+Please don't, this project is unmaintained.
 
 ## Road Map
 
