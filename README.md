@@ -85,10 +85,10 @@ Please don't.
 
 Here are some ideas for improving this project:
 
-* languages/region support - Wikipedia has many other regions and languages it serves and these are often referred to as "projects" in Wikipedia world. This project only covers the English language "project". Adding a parameter to the URL could improve the available statistical data.
-* stats for other types of data - This project only covers PageView statistics. The Wikipedia API is vast and could collect stats from many other types of query-able information, such as users/contributors and categories.
-* caching results - The code runs a fresh API query on every call. I'm sure Wikipedia is caching that data, but this code could also cache results in something fun like a sqlite database.
-* limit returned results - Some of the endpoints will return 1000 items. A good way to help speed up response times would be to slice that 1000 item long list with a URL query param.
-* configuration - The project is mostly hardcoded with it's configurable variables. Some ideas for different configuration options are: threading workers, rate limiting, other sources/API endpoints, http port/host
-* tests can always be improved (mock data) - perhaps in conjunction with the caching support
-* shrink the container image - Currently my basic python:3.11 container image is whopping 1.03GB. Much too big for a small application
+* __languages/region support__ - Wikipedia has many other regions and languages it serves and these are often referred to as "projects" in Wikipedia world. This project only covers the English language "project". Adding a parameter to the URL could improve the available statistical data.
+* __stats for other types of data__ - This project only covers PageView statistics. The Wikipedia API is vast and could collect stats from many other types of query-able information, such as users/contributors and categories.
+* __caching results__ - The code runs a fresh API query on every call. I'm sure Wikipedia is caching that data, but this code could also cache results in something fun like a sqlite database.
+* __limit returned results__ - Some of the endpoints will return 1000 items. A good way to help speed up response times would be to slice that 1000 item long list with a URL query param.
+* __configuration__ - The project is mostly hardcoded with it's configurable variables. Some ideas for different configuration options are: threading workers, rate limiting, other sources/API endpoints, http port/host
+* __tests can always be improved (mock data)__ - perhaps in conjunction with the caching support
+* __shrink the container image__ - Currently my basic python:3.11 container image is whopping 1.03GB. Much too big for a small application
